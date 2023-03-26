@@ -9,7 +9,6 @@ import Products from "./component/Product/Products.js"
 import LoginSignUp from "./component/User/LoginSignUp"
 import store from "./store"
 import { loadUser} from './actions/userAction';
-import {useSelector} from "react-redux"
 import axios from 'axios';
 import {Elements} from "@stripe/react-stripe-js"
 import {loadStripe} from "@stripe/stripe-js"
