@@ -43,9 +43,10 @@ import { BASE_URL } from "../API";
 
 
 export const login = (email, password) => async (dispatch) => {
+
     try {
       dispatch({ type: LOGIN_REQUEST });
-      
+
       const { data } = await axios.post(
         `${BASE_URL}/login`,
         { email, password },
@@ -92,7 +93,7 @@ export const loadUser = () => async (dispatch) => {
 
 // Logout User
 export const logout = () => async (dispatch) => {
-  const config = { headers: { "Content-Type": "application/json" , withCredentials: true, credentials: 'include'} };
+  const config = { withCredentials: true, credentials: 'include'}
 
     try {
       await axios.get(`${BASE_URL}/logout`, config);

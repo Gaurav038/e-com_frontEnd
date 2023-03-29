@@ -82,7 +82,7 @@ export const createProduct = (productData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_PRODUCT_REQUEST });
 
-    const config = { headers: { "Content-Type": "application/json" , withCredentials: true, credentials: 'include'} };
+    const config = {withCredentials: true, credentials: 'include'} ;
 
     const { data } = await axios.post(
       `${BASE_URL}/admin/product/new`,
