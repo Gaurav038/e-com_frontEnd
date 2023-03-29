@@ -63,7 +63,7 @@ export const getAdminProduct = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_PRODUCT_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/admin/products`);
+    const { data } = await axios.get(`${BASE_URL}/admin/products`, {withCredentials: true, credentials: 'include'});
 
     dispatch({
       type: ADMIN_PRODUCT_SUCCESS,
@@ -82,9 +82,7 @@ export const createProduct = (productData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_PRODUCT_REQUEST });
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
+    const config = { headers: { "Content-Type": "application/json" , withCredentials: true, credentials: 'include'} };
 
     const { data } = await axios.post(
       `${BASE_URL}/admin/product/new`,
@@ -109,7 +107,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/product/${id}`);
+    const { data } = await axios.get(`${BASE_URL}/product/${id}`, {withCredentials: true, credentials: 'include'});
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -128,9 +126,7 @@ export const newReview = (reviewData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_REVIEW_REQUEST });
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
+    const config = { withCredentials: true, credentials: 'include'}
 
     const { data } = await axios.put(`${BASE_URL}/review`, reviewData, config);
 
@@ -152,7 +148,7 @@ export const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_PRODUCT_REQUEST });
 
-    const { data } = await axios.delete(`${BASE_URL}/admin/product/${id}`);
+    const { data } = await axios.delete(`${BASE_URL}/admin/product/${id}`, {withCredentials: true, credentials: 'include'});
 
     dispatch({
       type: DELETE_PRODUCT_SUCCESS,
@@ -172,9 +168,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PRODUCT_REQUEST });
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
+    const config = {  withCredentials: true, credentials: 'include' };
 
     const { data } = await axios.put(
       `${BASE_URL}/admin/product/${id}`,
@@ -199,7 +193,7 @@ export const getAllReviews = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_REVIEW_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/reviews?id=${id}`);
+    const { data } = await axios.get(`${BASE_URL}/reviews?id=${id}`, {withCredentials: true, credentials: 'include'});
 
     dispatch({
       type: ALL_REVIEW_SUCCESS,
@@ -219,7 +213,7 @@ export const deleteReviews = (reviewId, productId) => async (dispatch) => {
     dispatch({ type: DELETE_REVIEW_REQUEST });
 
     const { data } = await axios.delete(
-      `${BASE_URL}/reviews?id=${reviewId}&productId=${productId}`
+      `${BASE_URL}/reviews?id=${reviewId}&productId=${productId}`, {withCredentials: true, credentials: 'include'}
     );
 
     dispatch({

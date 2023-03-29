@@ -35,6 +35,7 @@ import ProcessOrder from './component/Admin/ProcessOrder';
 import UsersList from './component/Admin/UsersList';
 import UpdateUser from './component/Admin/UpdateUser';
 import ProductReviews from './component/Admin/ProductReviews';
+import { BASE_URL } from './API';
 
 
 export default function App() {
@@ -42,7 +43,7 @@ export default function App() {
   const [stripeApiKey, setStripeApiKey] = useState("")
 
   async function getStripeApiKey() {
-    const {data} = await axios.get("/api/v1/stripeapikey")
+    const {data} = await axios.get(`${BASE_URL}/stripeapikey`, {withCredentials: true, credentials: 'include'})
     setStripeApiKey(data.stripeApiKey)
   }
   
@@ -51,7 +52,7 @@ export default function App() {
 
         getStripeApiKey();
     }, [])    
-
+  
     // -------------No person can inspect it-----------------
     // window.addEventListener("contextmenu", (e) => e.preventDefault())
 

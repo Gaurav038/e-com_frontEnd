@@ -40,12 +40,13 @@ import axios from "axios";
 import { BASE_URL } from "../API";
 
 // Login
+
+
 export const login = (email, password) => async (dispatch) => {
     try {
       dispatch({ type: LOGIN_REQUEST });
-  
-      const config =  {withCredentials: true, credentials: 'include'}
-  
+      
+      const config = { headers: { "Content-Type": "application/json" , withCredentials: true, credentials: 'include'} };
       const { data } = await axios.post(
         `${BASE_URL}/login`,
         { email, password },
@@ -82,7 +83,7 @@ export const loadUser = () => async (dispatch) => {
     try {
       dispatch({ type: LOAD_USER_REQUEST });
   
-      const { data } = await axios.get(`${BASE_URL}/me`);
+      const { data } = await axios.get(`${BASE_URL}/me`, {withCredentials: true, credentials: 'include'});
   
       dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
     } catch (error) {
@@ -92,8 +93,10 @@ export const loadUser = () => async (dispatch) => {
 
 // Logout User
 export const logout = () => async (dispatch) => {
+  const config = { headers: { "Content-Type": "application/json" , withCredentials: true, credentials: 'include'} };
+
     try {
-      await axios.get(`${BASE_URL}/logout`);
+      await axios.get(`${BASE_URL}/logout`, config);
   
       dispatch({ type: LOGOUT_SUCCESS });
     } catch (error) {
@@ -125,7 +128,7 @@ export const updatePassword = (passwords) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PASSWORD_REQUEST });
 
-    const config = { headers: { "Content-Type": "application/json" } };
+    const config = {withCredentials: true, credentials: 'include'};
 
     const { data } = await axios.put(
       `${BASE_URL}/password/update`,
@@ -186,7 +189,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 export const getAllUsers = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_USERS_REQUEST });
-    const { data } = await axios.get(`${BASE_URL}/admin/users`);
+    const { data } = await axios.get(`${BASE_URL}/admin/users`, {withCredentials: true, credentials: 'include'});
 
     dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
   } catch (error) {
@@ -198,7 +201,7 @@ export const getAllUsers = () => async (dispatch) => {
 export const getUserDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: USER_DETAILS_REQUEST });
-    const { data } = await axios.get(`${BASE_URL}/admin/user/${id}`);
+    const { data } = await axios.get(`${BASE_URL}/admin/user/${id}`, {withCredentials: true, credentials: 'include'});
 
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data.user });
   } catch (error) {
@@ -211,7 +214,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_USER_REQUEST });
 
-    const config = { headers: { "Content-Type": "application/json" } };
+    const config = {withCredentials: true, credentials: 'include'};
 
     const { data } = await axios.put(
       `${BASE_URL}/admin/user/${id}`,

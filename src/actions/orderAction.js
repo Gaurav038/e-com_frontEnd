@@ -28,11 +28,7 @@ export const createOrder = (order) => async (dispatch) => {
     try {
       dispatch({ type: CREATE_ORDER_REQUEST });
   
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      const config =  {withCredentials: true, credentials: 'include'}
       const { data } = await axios.post(`${BASE_URL}/order/new`, order, config);
   
       dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
@@ -49,7 +45,7 @@ export const myOrders = () => async (dispatch) => {
   try {
     dispatch({ type: MY_ORDERS_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/orders/me`);
+    const { data } = await axios.get(`${BASE_URL}/orders/me`, {withCredentials: true, credentials: 'include'});
 
     dispatch({ type: MY_ORDERS_SUCCESS, payload: data.orders });
   } catch (error) {
@@ -66,7 +62,7 @@ export const getAllOrders = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_ORDERS_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/admin/orders`);
+    const { data } = await axios.get(`${BASE_URL}/admin/orders`, {withCredentials: true, credentials: 'include'});
 
     dispatch({ type: ALL_ORDERS_SUCCESS, payload: data.orders });
   } catch (error) {
@@ -82,11 +78,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_ORDER_REQUEST });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    const config =  {withCredentials: true, credentials: 'include'}
     const { data } = await axios.put(
       `${BASE_URL}/admin/order/${id}`,
       order,
@@ -107,7 +99,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_ORDER_REQUEST });
 
-    const { data } = await axios.delete(`${BASE_URL}/admin/order/${id}`);
+    const { data } = await axios.delete(`${BASE_URL}/admin/order/${id}`, {withCredentials: true, credentials: 'include'});
 
     dispatch({ type: DELETE_ORDER_SUCCESS, payload: data.success });
   } catch (error) {
@@ -123,7 +115,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/order/${id}`);
+    const { data } = await axios.get(`${BASE_URL}/order/${id}`, {withCredentials: true, credentials: 'include'});
 
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data.order });
   } catch (error) {
