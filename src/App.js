@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, Suspense} from 'react'
 import './App.css'
 import Header from "./component/layout/Headersss/Header.jsx"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -26,16 +26,28 @@ import Payment from "./component/Cart/Payment"
 import OrderSuccess from "./component/Cart/OrderSuccess.js"
 import MyOrders from "./component/Order/MyOrders.js"
 import OrderDetails from "./component/Order/OrderDetails.js"
-import Dashboard from "./component/Admin/Dashboard.js"
-import ProductList from "./component/Admin/ProductList.js"
-import NewProduct from "./component/Admin/NewProduct"
-import UpdateProduct from "./component/Admin/UpdateProduct.js"
-import OrderList from './component/Admin/OrderList';
-import ProcessOrder from './component/Admin/ProcessOrder';
-import UsersList from './component/Admin/UsersList';
-import UpdateUser from './component/Admin/UpdateUser';
-import ProductReviews from './component/Admin/ProductReviews';
+
+// import Dashboard from "./component/Admin/Dashboard.js"
+// import ProductList from "./component/Admin/ProductList.js"
+// import NewProduct from "./component/Admin/NewProduct"
+// import UpdateProduct from "./component/Admin/UpdateProduct.js"
+// import OrderList from './component/Admin/OrderList';
+// import ProcessOrder from './component/Admin/ProcessOrder';
+// import UsersList from './component/Admin/UsersList';
+// import UpdateUser from './component/Admin/UpdateUser';
+// import ProductReviews from './component/Admin/ProductReviews';
 import { BASE_URL } from './API';
+import Loader from './component/layout/Loader/Loader';
+
+const Dashboard = React.lazy(() => import('./component/Admin/Dashboard.js'));
+const ProductList = React.lazy(() => import('./component/Admin/ProductList.js'));
+const NewProduct = React.lazy(() => import('./component/Admin/NewProduct'));
+const UpdateProduct = React.lazy(() => import('./component/Admin/UpdateProduct.js'));
+const OrderList = React.lazy(() => import('./component/Admin/OrderList'));
+const ProcessOrder = React.lazy(() => import('./component/Admin/ProcessOrder'));
+const UsersList = React.lazy(() => import('./component/Admin/UsersList'));
+const UpdateUser = React.lazy(() => import('./component/Admin/UpdateUser'));
+const ProductReviews = React.lazy(() => import('./component/Admin/ProductReviews'));
 
 
 export default function App() {
@@ -83,6 +95,7 @@ export default function App() {
                 <ProtectedRoute exact path="/orders" component={MyOrders} />
                 <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
                 {/*---------- adminPart---------------- */}
+                <Suspense fallback = {<Loader />} >
                 <ProtectedRoute isAdmin={true} exact path="/admin/dashboard" component={Dashboard} />
                 <ProtectedRoute isAdmin={true} exact path="/admin/products" component={ProductList} />
                 <ProtectedRoute isAdmin={true} exact path="/admin/product" component={NewProduct} />
@@ -92,7 +105,7 @@ export default function App() {
                 <ProtectedRoute isAdmin={true} exact path="/admin/users" component={UsersList} />
                 <ProtectedRoute isAdmin={true} exact path="/admin/user/:id" component={UpdateUser} />
                 <ProtectedRoute isAdmin={true} exact path="/admin/reviews" component={ProductReviews} />
-                
+                </Suspense>
 
                 </Switch> 
                 <Footer />   
