@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 const useStyle = makeStyles(theme => ({
     header: {
-        background: '#2874f0',
+        background: '#211f1ce6',
         height: 55,
         display: 'flex',
         alignItems: 'center'

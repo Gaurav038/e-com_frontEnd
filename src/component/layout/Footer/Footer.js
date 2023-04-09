@@ -17,7 +17,7 @@ const Footer = () => {
         <h1>ECOMMERCE.</h1>
         <p>High Quality is our first priority We also deliver amazing offers, such as Instant Discounts</p>
 
-        <p>Copyrights 2021 &copy; Gaurav Singh</p>
+        <p>Copyrights 2023 &copy; Gaurav Singh</p>
       </div>
 
       <div className="rightFooter">
