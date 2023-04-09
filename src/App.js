@@ -1,48 +1,43 @@
 import React, { useState, useEffect, Suspense} from 'react'
 import './App.css'
-import Header from "./component/layout/Headersss/Header.jsx"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Footer from './component/layout/Footer/Footer'
-import Home from './component/Home/Home'
-import ProductDetails from "./component/Product/ProductDetails"
-import Products from "./component/Product/Products.js"
-import LoginSignUp from "./component/User/LoginSignUp"
 import store from "./store"
 import { loadUser} from './actions/userAction';
 import axios from 'axios';
 import {Elements} from "@stripe/react-stripe-js"
 import {loadStripe} from "@stripe/stripe-js"
-
-import Profile from "./component/User/Profile"
 import ProtectedRoute from './component/Route/ProtectedRoute';
-import UpdateProfile from "./component/User/UpdateProfile.js"
-import UpdatePassword from "./component/User/UpdatePassword.js"
-import ForgotPassword from './component/User/ForgotPassword';
-import ResetPassword from "./component/User/ResetPassword"
-import Cart from './component/Cart/Cart';
+
+import { BASE_URL } from './API';
+import Payment from "./component/Cart/Payment"
+import Loader from './component/layout/Loader/Loader';
+import Header from "./component/layout/Headersss/Header.jsx"
+import Footer from './component/layout/Footer/Footer'
 import Shipping from "./component/Cart/Shipping"
 import ConfirmOrder from './component/Cart/ConfirmOrder';
-import Payment from "./component/Cart/Payment"
 import OrderSuccess from "./component/Cart/OrderSuccess.js"
 import MyOrders from "./component/Order/MyOrders.js"
 import OrderDetails from "./component/Order/OrderDetails.js"
 
-// import Dashboard from "./component/Admin/Dashboard.js"
-// import ProductList from "./component/Admin/ProductList.js"
-// import NewProduct from "./component/Admin/NewProduct"
-// import UpdateProduct from "./component/Admin/UpdateProduct.js"
-// import OrderList from './component/Admin/OrderList';
-// import ProcessOrder from './component/Admin/ProcessOrder';
-// import UsersList from './component/Admin/UsersList';
-// import UpdateUser from './component/Admin/UpdateUser';
-// import ProductReviews from './component/Admin/ProductReviews';
-import { BASE_URL } from './API';
-import Loader from './component/layout/Loader/Loader';
 
-const Dashboard = React.lazy(() => import('./component/Admin/Dashboard.js'));
-const ProductList = React.lazy(() => import('./component/Admin/ProductList.js'));
+const Home = React.lazy(() => import('./component/Home/Home'))
+const ProductDetails = React.lazy(() => import("./component/Product/ProductDetails"))
+const Products = React.lazy(() => import("./component/Product/Products.js"))
+const LoginSignUp = React.lazy(() => import("./component/User/LoginSignUp"))
+const Profile = React.lazy(() => import("./component/User/Profile"))
+const UpdateProfile = React.lazy(() => import("./component/User/UpdateProfile.js"))
+const UpdatePassword = React.lazy(() => import("./component/User/UpdatePassword.js"))
+const ForgotPassword = React.lazy(() => import('./component/User/ForgotPassword'))
+const ResetPassword = React.lazy(() => import("./component/User/ResetPassword"))
+const Cart = React.lazy(() => import('./component/Cart/Cart'))
+
+
+
+// ----------admin----------------
+const Dashboard = React.lazy(() => import('./component/Admin/Dashboard'));
+const ProductList = React.lazy(() => import('./component/Admin/ProductList'));
 const NewProduct = React.lazy(() => import('./component/Admin/NewProduct'));
-const UpdateProduct = React.lazy(() => import('./component/Admin/UpdateProduct.js'));
+const UpdateProduct = React.lazy(() => import('./component/Admin/UpdateProduct'));
 const OrderList = React.lazy(() => import('./component/Admin/OrderList'));
 const ProcessOrder = React.lazy(() => import('./component/Admin/ProcessOrder'));
 const UsersList = React.lazy(() => import('./component/Admin/UsersList'));
@@ -76,8 +71,16 @@ export default function App() {
                   <ProtectedRoute exact path="/process/payment" component={Payment} />
                 </Elements>}
 
-                <Switch>
-                  
+                <Switch>       
+                
+                <Route exact path="/order/confirm" component={ConfirmOrder} />
+                <ProtectedRoute exact path="/shipping" component={Shipping} />
+                <ProtectedRoute exact path="/success" component={OrderSuccess} />
+                <ProtectedRoute exact path="/orders" component={MyOrders} />
+                <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
+
+                {/*---------- adminPart---------------- */}
+                <Suspense fallback = {<Loader />} >
                 <Route exact path="/" component={Home} />
                 <Route exact path="/product/:id" component={ProductDetails} />
                 <Route exact path="/products" component={Products} />
@@ -89,13 +92,7 @@ export default function App() {
                 <Route exact path="/password/reset/:token" component={ResetPassword} />
                 <Route exact path="/login" component={LoginSignUp} />
                 <Route exact path="/cart" component={Cart} />
-                <Route exact path="/order/confirm" component={ConfirmOrder} />
-                <ProtectedRoute exact path="/shipping" component={Shipping} />
-                <ProtectedRoute exact path="/success" component={OrderSuccess} />
-                <ProtectedRoute exact path="/orders" component={MyOrders} />
-                <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
-                {/*---------- adminPart---------------- */}
-                <Suspense fallback = {<Loader />} >
+
                 <ProtectedRoute isAdmin={true} exact path="/admin/dashboard" component={Dashboard} />
                 <ProtectedRoute isAdmin={true} exact path="/admin/products" component={ProductList} />
                 <ProtectedRoute isAdmin={true} exact path="/admin/product" component={NewProduct} />
@@ -105,6 +102,7 @@ export default function App() {
                 <ProtectedRoute isAdmin={true} exact path="/admin/users" component={UsersList} />
                 <ProtectedRoute isAdmin={true} exact path="/admin/user/:id" component={UpdateUser} />
                 <ProtectedRoute isAdmin={true} exact path="/admin/reviews" component={ProductReviews} />
+                
                 </Suspense>
 
                 </Switch> 

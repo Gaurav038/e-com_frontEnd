@@ -19,10 +19,11 @@ const Shipping = ({ history }) => {
   const [city, setCity] = useState(shippingInfo.city);
   const [pinCode, setPinCode] = useState(shippingInfo.pinCode);
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
-
+  console.log(shippingInfo, "---------");
+  
   const shippingSubmit = (e) => {
     e.preventDefault();
-
+    
     if (phoneNo.length < 10 || phoneNo.length > 10) {
       alert.error("Phone Number should be 10 digits Long");
       return;

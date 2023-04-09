@@ -35,7 +35,7 @@ export const createOrder = (order) => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: CREATE_ORDER_FAIL,
-        payload: error.response.data.message,
+        payload: error?.response?.data?.message,
       });
     }
   };
@@ -51,7 +51,7 @@ export const myOrders = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: MY_ORDERS_FAIL,
-      payload: error.response.data.message,
+      payload: error?.response?.data?.message,
     });
   }
 };
@@ -68,7 +68,7 @@ export const getAllOrders = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ALL_ORDERS_FAIL,
-      payload: error.response.data.message,
+      payload: error?.response?.data?.message,
     });
   }
 };
@@ -89,7 +89,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_ORDER_FAIL,
-      payload: error.response.data.message,
+      payload: error?.response?.data?.message,
     });
   }
 };
@@ -105,7 +105,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_ORDER_FAIL,
-      payload: error.response.data.message,
+      payload: error?.response?.data?.message,
     });
   }
 };
@@ -121,7 +121,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ORDER_DETAILS_FAIL,
-      payload: error.response.data.message,
+      payload: error?.response?.data?.message,
     });
   }
 };

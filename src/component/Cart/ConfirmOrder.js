@@ -36,10 +36,10 @@ const ConfirmOrder = ({ history }) => {
   };
 
   return (
-    <Fragment>
+    <>
       <MetaData title="Confirm Order" />
       <CheckoutSteps activeStep={1} />
-      <div className="confirmOrderPage">
+     {user && <div className="confirmOrderPage">
         <div>
           <div className="confirmshippingArea">
             <Typography>Shipping Info</Typography>
@@ -102,8 +102,8 @@ const ConfirmOrder = ({ history }) => {
             <button onClick={proceedToPayment}>Proceed To Payment</button>
           </div>
         </div>
-      </div>
-    </Fragment>
+      </div>}
+    </>
   );
 };
 
